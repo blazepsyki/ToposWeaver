@@ -1370,7 +1370,7 @@ fn build_config(username: String, password: String, domain: Option<String>, widt
             ]),
         }),
         client_build: 0,
-        client_name: "kterm-rdp".to_owned(),
+        client_name: "ToposWeaver".to_owned(),
         client_dir: "C:\\Windows\\System32\\mstscax.dll".to_owned(),
         alternate_shell: String::new(),
         work_dir: String::new(),

@@ -60,7 +60,7 @@ fn session_log_path() -> &'static std::path::Path {
     SESSION_LOG_PATH
         .get_or_init(|| {
             let timestamp = chrono::Local::now().format("%Y%m%d_%H%M%S").to_string();
-            Path::new("logs").join(format!("kterm_{}.log", timestamp))
+            Path::new("logs").join(format!("topos_weaver_{}.log", timestamp))
         })
         .as_path()
 }
@@ -71,7 +71,8 @@ pub fn runtime_log_path() -> std::path::PathBuf {
 
 pub(crate) fn rdp_trace_enabled() -> bool {
     *RDP_TRACE_ENABLED.get_or_init(|| {
-        std::env::var("KTERM_RDP_TRACE")
+        std::env::var("TOPOS_WEAVER_RDP_TRACE")
+            .or_else(|_| std::env::var("KTERM_RDP_TRACE"))
             .map(|v| {
                 let v = v.to_ascii_lowercase();
                 v == "1" || v == "true" || v == "yes" || v == "on"
@@ -94,7 +95,7 @@ fn init_session_log_file() -> Result<(), String> {
 
     writeln!(
         file,
-        "\n=== kterm run start {} ===",
+        "\n=== ToposWeaver run start {} ===",
         chrono::Local::now().format("%Y-%m-%d %H:%M:%S%.3f")
     )
     .map_err(|e| format!("cannot write runtime log header: {}", e))?;
@@ -151,6 +152,6 @@ pub fn main() -> iced::Result {
         ..Default::default()
     })
     .subscription(app::subscription::subscription)
-    .title("k_term")
+    .title("ToposWeaver")
     .run()
 }

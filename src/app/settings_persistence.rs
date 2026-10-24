@@ -288,17 +288,25 @@ impl SettingsData {
 pub fn settings_path() -> PathBuf {
     if let Ok(exe) = std::env::current_exe() {
         if let Some(dir) = exe.parent() {
-            return dir.join("kterm_settings.json");
+            return dir.join("topos_weaver_settings.json");
         }
     }
-    PathBuf::from("kterm_settings.json")
+    PathBuf::from("topos_weaver_settings.json")
 }
 
 /// Load settings from disk. Returns `SettingsData::default()` if the file
 /// does not exist or cannot be parsed (logs a warning).
 pub fn load_settings() -> SettingsData {
     let path = settings_path();
-    load_settings_from(&path)
+    load_settings_with_legacy_from(&path)
+}
+
+fn load_settings_with_legacy_from(path: &Path) -> SettingsData {
+    let legacy_path = path.with_file_name("kterm_settings.json");
+    if !path.exists() && legacy_path.exists() {
+        return load_settings_from(&legacy_path);
+    }
+    load_settings_from(path)
 }
 
 fn load_settings_from(path: &Path) -> SettingsData {
@@ -388,5 +396,35 @@ mod tests {
     fn load_nonexistent_returns_default() {
         let data = load_settings_from(Path::new("__nonexistent_test_file__.json"));
         assert_eq!(data.common_timeout, "30");
+    }
+
+    #[test]
+    fn renamed_settings_preserve_legacy_and_prefer_new_file() {
+        let timestamp = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let dir = std::env::temp_dir().join(format!(
+            "topos_weaver_settings_{}_{}",
+            std::process::id(),
+            timestamp
+        ));
+        std::fs::create_dir(&dir).unwrap();
+        let path = dir.join("topos_weaver_settings.json");
+        let legacy_path = dir.join("kterm_settings.json");
+        std::fs::write(&legacy_path, r#"{"common_timeout":"42"}"#).unwrap();
+
+        let mut data = load_settings_with_legacy_from(&path);
+        assert_eq!(data.common_timeout, "42");
+        assert!(!path.exists());
+
+        data.common_timeout = "60".to_string();
+        save_settings_to(&data, &path);
+        assert_eq!(load_settings_with_legacy_from(&path).common_timeout, "60");
+        assert_eq!(load_settings_from(&legacy_path).common_timeout, "42");
+
+        std::fs::write(&path, "invalid json").unwrap();
+        assert_eq!(load_settings_with_legacy_from(&path).common_timeout, "30");
+        std::fs::remove_dir_all(&dir).unwrap();
     }
 }

@@ -1,6 +1,6 @@
-# kterm
+# ToposWeaver
 
-kterm은 Windows에서 MobaXterm을 대체하는 것을 목표로 하는 Rust 데스크톱 클라이언트입니다. SSH·Telnet·Serial·로컬 셸의 terminal과 RDP·VNC의 원격 화면을 하나의 앱에서 다룹니다.
+ToposWeaver는 Windows에서 MobaXterm을 대체하는 것을 목표로 하는 Rust 데스크톱 클라이언트입니다. SSH·Telnet·Serial·로컬 셸의 terminal과 RDP·VNC의 원격 화면을 하나의 앱에서 다룹니다. 이전 프로젝트 이름은 kterm이며, Cargo 패키지와 실행 파일 이름은 `topos-weaver`입니다.
 
 현재 버전은 **0.1.2**입니다. 기본 연결 경로는 있지만 저장 세션·SFTP·SSH gateway·터널·X11 등 주요 기능이 빠져 있으며, 운영 사용 전에 해결할 신뢰 검증·terminal 안정성 문제가 있습니다.
 
@@ -32,7 +32,7 @@ cargo run --locked
 cargo build --release --locked
 ```
 
-실행 파일은 `target/release/kterm.exe`에 생성됩니다. Welcome 탭에서 프로토콜을 선택하고 연결 정보를 입력하시면 됩니다. Local Shell은 시스템에서 탐지한 CMD·PowerShell·Bash 중 하나를 선택합니다. Bash와 Unix 도구는 kterm에 포함되어 있지 않습니다.
+실행 파일은 `target/release/topos-weaver.exe`에 생성됩니다. Welcome 탭에서 프로토콜을 선택하고 연결 정보를 입력하시면 됩니다. Local Shell은 시스템에서 탐지한 CMD·PowerShell·Bash 중 하나를 선택합니다. Bash와 Unix 도구는 ToposWeaver에 포함되어 있지 않습니다.
 
 ## 현재 기능
 
@@ -64,15 +64,17 @@ MobaXterm의 공개 공통 기능과 Professional의 프로그램 기능을 최�
 
 ## 설정과 로그
 
-- 전역 설정은 실행 파일 옆 `kterm_settings.json`에 저장합니다. 기본값과 다른 값만 기록하고 시작 시 로드합니다. 저장 연결 프로필이나 비밀번호 보관 기능은 없습니다.
+- 전역 설정은 실행 파일 옆 `topos_weaver_settings.json`에 저장합니다. 새 파일이 없으면 같은 폴더의 이전 `kterm_settings.json`을 읽으며, 이후 설정 저장은 새 파일에만 기록합니다. 두 파일이 모두 있으면 새 파일을 우선하고 이전 파일은 보존합니다. 기본값과 다른 값만 기록합니다. 저장 연결 프로필이나 비밀번호 보관 기능은 없습니다.
 - 파일이 없거나 읽기·파싱에 실패하면 기본값을 사용합니다. 쓰기 실패는 로그에 기록됩니다. 실행 파일 폴더에 쓰기 권한이 필요합니다.
-- 앱 진단 로그는 현재 작업 폴더의 `logs/kterm_YYYYMMDD_HHMMSS.log`에 기록됩니다. 세션별 terminal 출력 저장과는 다른 기능입니다.
+- 앱 진단 로그는 현재 작업 폴더의 `logs/topos_weaver_YYYYMMDD_HHMMSS.log`에 기록됩니다. 세션별 terminal 출력 저장과는 다른 기능입니다.
 - 상세 RDP 추적은 다음과 같이 켤 수 있습니다.
 
 ```powershell
-$env:KTERM_RDP_TRACE = '1'
+$env:TOPOS_WEAVER_RDP_TRACE = '1'
 cargo run --locked
 ```
+
+`TOPOS_WEAVER_RDP_TRACE`가 없으면 이전 `KTERM_RDP_TRACE`도 읽습니다. 두 변수가 모두 있으면 새 변수를 우선합니다.
 
 VNC clipboard 본문을 진단 로그로 전달하던 경로와 terminal CSI별 debug 파일 쓰기를 제거했습니다. VNC는 clipboard 수신 byte 길이만 debug 로그에 기록하며 OS clipboard 연동은 후속 작업입니다.
 
@@ -86,6 +88,6 @@ cargo test --locked
 
 ## 라이선스
 
-kterm 자체는 `MIT OR Apache-2.0`입니다. [MIT](docs/license/LICENSE-MIT) 또는 [Apache-2.0](docs/license/LICENSE-APACHE)을 선택하여 적용할 수 있으며 [안내 원문](docs/license/LICENSE)을 함께 제공합니다.
+ToposWeaver 자체는 `MIT OR Apache-2.0`입니다. [MIT](docs/license/LICENSE-MIT) 또는 [Apache-2.0](docs/license/LICENSE-APACHE)을 선택하여 적용할 수 있으며 [안내 원문](docs/license/LICENSE)을 함께 제공합니다.
 
 의존성·MPL-2.0 배포 점검과 폰트 고지는 [구조와 구현 현황의 라이선스 절](docs/architecture.md#의존성과-라이선스)에 통합했습니다. 포함된 폰트는 D2Coding 1.4.0 일반 Regular이며 [OFL 원문](assets/fonts/OFL-1.1.txt)과 [출처·폰트 고지](assets/fonts/D2Coding-LICENSE-NOTICE.txt)를 함께 제공합니다.

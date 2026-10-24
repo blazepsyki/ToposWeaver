@@ -3782,43 +3782,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e2db585e1d738fc771bf08a151420d3ed193d9d895a36df7f6f8a9456b911ddc"
 
 [[package]]
-name = "kterm"
-version = "0.1.2"
-dependencies = [
- "bytemuck",
- "bytes",
- "chrono",
- "env_logger",
- "futures",
- "iced",
- "ironrdp",
- "ironrdp-cliprdr",
- "ironrdp-cliprdr-native",
- "ironrdp-core",
- "ironrdp-dvc",
- "ironrdp-egfx",
- "ironrdp-input",
- "ironrdp-rdpsnd",
- "ironrdp-rdpsnd-native",
- "ironrdp-tls",
- "ironrdp-tokio",
- "log",
- "nectar",
- "picky-krb",
- "portable-pty",
- "russh",
- "serde",
- "serde_json",
- "tokio",
- "tokio-serial",
- "tokio-util",
- "unicode-width",
- "vnc-rs",
- "vte",
- "windows-sys 0.61.2",
-]
-
-[[package]]
 name = "kurbo"
 version = "0.10.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7480,6 +7443,43 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1d38ac1cf9b95face32296c0a3ede1fdc270627c9d9c02a7274dd6d960dc4d56"
 dependencies = [
  "winnow",
+]
+
+[[package]]
+name = "topos-weaver"
+version = "0.1.2"
+dependencies = [
+ "bytemuck",
+ "bytes",
+ "chrono",
+ "env_logger",
+ "futures",
+ "iced",
+ "ironrdp",
+ "ironrdp-cliprdr",
+ "ironrdp-cliprdr-native",
+ "ironrdp-core",
+ "ironrdp-dvc",
+ "ironrdp-egfx",
+ "ironrdp-input",
+ "ironrdp-rdpsnd",
+ "ironrdp-rdpsnd-native",
+ "ironrdp-tls",
+ "ironrdp-tokio",
+ "log",
+ "nectar",
+ "picky-krb",
+ "portable-pty",
+ "russh",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tokio-serial",
+ "tokio-util",
+ "unicode-width",
+ "vnc-rs",
+ "vte",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]

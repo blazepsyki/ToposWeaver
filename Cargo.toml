@@ -1,5 +1,5 @@
 [package]
-name = "kterm"
+name = "topos-weaver"
 version = "0.1.2"
 edition = "2024"
 license = "MIT OR Apache-2.0"

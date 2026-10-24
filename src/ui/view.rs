@@ -41,7 +41,7 @@ pub fn view(state: &State) -> Element<'_, Message> {
         .sessions
         .get(state.active_index)
         .map(|s| s.name.clone())
-        .unwrap_or_else(|| "kterm".to_string());
+        .unwrap_or_else(|| "ToposWeaver".to_string());
     let menu_bar = row![
         button(text("Session ▾").size(12))
             .padding([4, 8])
@@ -66,7 +66,7 @@ pub fn view(state: &State) -> Element<'_, Message> {
     let title_bar = container(
         row![
             container(
-                text(" ◈ kterm").size(14).font(Font {
+                text(" ◈ ToposWeaver").size(14).font(Font {
                     weight: Weight::Bold,
                     ..Default::default()
                 })
