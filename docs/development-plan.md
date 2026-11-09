@@ -170,6 +170,8 @@ K18은 다른 P1 기능의 완료를 기다리지 않고 P1 초반부터 조사�
 
 이 범위는 저장 세션·SFTP·X11을 한 변경에 넣지 않습니다. 이미 재현된 오류부터 고쳐 공통 terminal을 사용하는 SSH/Telnet/Serial/Local의 기반을 확보한다는 판단입니다. terminal core를 교체할지는 K05에서 호환성·라이선스·변경 범위를 비교해 결정하며, 기존 설계의 부분 수정으로 해결할 수 있는 경계 오류는 먼저 처리합니다.
 
+2026-11-09의 [Alacritty 구성요소 재사용과 terminal 교체 검토](alacritty-integration-review.md)에 K05의 후보·교체 경계·검증 조건을 정리했습니다. `alacritty_terminal` core 재사용을 우선 검증하는 제안이며, 의존성 도입이나 K05 구현 완료를 의미하지 않습니다.
+
 ### K01·K02 첫 구현 기록
 
 2026-10-06, Windows x64의 현재 작업 트리에서 구현·검증했습니다. commit·릴리즈·GitHub CI 실행 완료를 의미하지 않습니다.

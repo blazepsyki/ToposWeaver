@@ -6,13 +6,14 @@ ToposWeaver는 Windows에서 MobaXterm을 대체하는 것을 목표로 하는 R
 
 ## 문서 안내
 
-현재 설명과 계획은 다음 3개 문서에서 관리합니다.
+현재 설명과 계획, 기술 검토는 다음 문서에서 관리합니다.
 
 | 문서 | 내용 |
 |---|---|
 | [README.md](README.md) | 프로젝트 목표, 실행 방법, 기능과 주요 제약입니다. |
 | [구조와 구현 현황](docs/architecture.md) | 모듈·데이터 흐름, 프로토콜·설정 구현, 확인된 문제, 의존성·라이선스입니다. |
 | [개발·검증 계획](docs/development-plan.md) | MobaXterm 기능 격차, 개발 우선순위·완료 조건, 서버 검증, 릴리즈 체크리스트입니다. |
+| [Alacritty 구성요소 재사용 검토](docs/alacritty-integration-review.md) | Rust terminal 후보, 재사용 가능한 API·주변 crate, 교체 경계와 도입 검증 조건입니다. 채택·구현 완료를 의미하지 않습니다. |
 
 2026-10-06 통합 이전 문서는 [docs/archived/2026-10-06](docs/archived/2026-10-06)에 원본 그대로 보관했습니다. 과거 기록은 백업에서, 현재 지원 여부는 위 문서에서 확인하시면 됩니다. 라이선스 원문은 [docs/license](docs/license)에 유지합니다.
 
