@@ -655,21 +655,6 @@ pub fn update(state: &mut State, message: Message) -> Task<Message> {
             }
             Task::none()
         }
-        Message::RemoteDisplayInputs(inputs) => {
-            if let Some(session) = state.sessions.get_mut(state.active_index) {
-                if let Some(ref sender) = session.sender {
-                    for input in inputs {
-                        let input = transform_remote_mouse(
-                            input,
-                            state.window_size,
-                            session.remote_display.as_ref(),
-                        );
-                        let _ = sender.send(connection::ConnectionInput::RemoteInput(input));
-                    }
-                }
-            }
-            Task::none()
-        }
         Message::RemoteSecureAttention(active) => {
             if let Some(session) = state.sessions.get_mut(state.active_index) {
                 if session.is_rdp_display() {
@@ -736,10 +721,6 @@ pub fn update(state: &mut State, message: Message) -> Task<Message> {
                 state.focused_field = (state.focused_field + 1) % count;
             }
             focus(fields[state.focused_field].clone())
-        }
-        Message::FieldFocused(index) => {
-            state.focused_field = index;
-            Task::none()
         }
         Message::WindowIdCaptured(id) => {
             if state.window_id.is_none() {
